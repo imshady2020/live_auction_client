@@ -1,7 +1,6 @@
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import CommunicationMessageFactory from './CommunicationMessageFactory';
-// import Event from './../EventSystem/Event';
-//import { Configuration } from './Config';
+import CommunicationFactory from './CommunicationFactory';
+import { Config } from './Config';
 
 export default class Communication {
 
@@ -16,44 +15,51 @@ export default class Communication {
      */
     static Initialize() {
 
-        // Event.On("jako", () => {
-        //     console.log("radi");
-        //   });
 
-        this.client = new W3CWebSocket('ws://127.0.0.1:8000');
+        /**
+         * @class W3CWebSocket extended and Initialized WebSocket class
+         */
+        this.client = new W3CWebSocket(`${Config.WebSocket.regularProtocol}${Config.WebSocket.baseURL}`);
+
 
         /**
          * Recive Initial message
          */
         this.client.onopen = () => {
             console.log('WebSocket Client Connected');
-            new CommunicationMessageFactory(true);
-        };
+            new CommunicationFactory(true);
+        }
+        
           
         /**
          * @param message Regular message from server
          */
         this.client.onmessage = (message) => {
             let messageData = JSON.parse(message.data);
-            CommunicationMessageFactory.HandleCommunicationSuccessMessage(messageData.type);
+            CommunicationFactory.HandleIncomingSuccessMessage(messageData.type);
         }
+
         
         /**
          * @param message Error message from server
          */
         this.client.onerror = (message) => {
             let errorMessage = JSON.parse(message.data);
-            CommunicationMessageFactory.HandleCommunicationErrorMessages(errorMessage.type);
+            console.log("nesto nije ok ovde");
+            CommunicationFactory.HandleIncomingErrorMessages(errorMessage.type);
         }
+
 
         /**
          * @param message Connection close message
          */
         this.client.onclose = (message) => {
-            console.log(message);
+            let closeMessage = JSON.parse(message.data);
+            CommunicationFactory.HandleIncomingCloseMessage(closeMessage.type);
         }
 
     }
+
 
     /**
      * Send method to send data to server
@@ -63,5 +69,5 @@ export default class Communication {
         this.client.send(messageData);
     }
 
-    
+
 }

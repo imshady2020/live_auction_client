@@ -2,18 +2,19 @@ import React from "react";
 import  Communication  from "./Communication/Communication";
 import { connect } from 'react-redux';
 import { ProductActions } from './Store/Actions/ProductActions';
-import Event from './EventSystem/Event';
 
 function App(props) {
 
-  const kliknuo = () => {
 
+  /**
+   * Test fn
+   */
+  const kliknuo = () => {
     Communication.Send(JSON.stringify({
         type: "message",
         msg: "Moram da ti kazem da si doktor",
         user: "Marko Taskovic"
     }));
-    Event.Emit("jako");
   }
 
   return (
@@ -24,9 +25,6 @@ function App(props) {
       <button onClick={kliknuo}>Sad cu da klinem</button>
       <button onClick={props.setProducts}>Ubaci proizvod</button>
       <button onClick={props.deleteProducts}>Obrisi proizvode</button>
-      {/* <button onClick={paliEvent}>Opali Event</button> */}
-
-      { console.log(props.test) }
 
     </div>
   
@@ -34,13 +32,22 @@ function App(props) {
 
 }
 
+
+/**
+ * This function returns all states from redux store and translate to props how we can have access
+ * @param state     - this is immutable state form redux store
+ */
 const mapStateToProps = (state) => {
   return {
-    allProducts: state.ProductReducer.products,
-    test: state.ProductReducer.pro
+    allProducts: state.ProductReducer.products
   };
 };
 
+
+/**
+ * This function dispatch user actions and store data
+ * @param dispatch  - redux callback parameter for dispatching actions 
+ */
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setProducts: () => {
@@ -55,5 +62,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 	};
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,4 @@
-export default Configuration = {
+export const Config = {
     WebSocket: {
         regularProtocol: "ws://",
         secureProtocolo: "wss://",
