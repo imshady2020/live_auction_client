@@ -27,23 +27,15 @@ const ProductState = {
 
 // Product Reducer
 const ProductReducer = (currentProductsState = ProductState, action) => {
-  if (action.type === ProductActions.GET_ALL_PRODUCTS) {
-    const newProducts = JSON.parse(JSON.stringify(ProductState.products))
-    newProducts[0].productID = "Novi ID"
-    return {
-      ...currentProductsState,
-      products: newProducts,
-    }
+  const { type, payload } = action
+  switch (type) {
+    case ProductActions.GET_ALL_PRODUCTS:
+      const noviState = JSON.parse(JSON.stringify(currentProductsState)) //pravi se deep copy da bi rerenderovao komponente koje koriste ovo iz store-a
+      noviState.products.push(payload)
+      return { ...noviState }
+    default:
+      return { ...currentProductsState }
   }
-
-  if (action.type === ProductActions.DELETE_ALL_PRODUCTS) {
-    return {
-      ...currentProductsState,
-      products: [],
-    }
-  }
-
-  return currentProductsState
 }
 
 export default ProductReducer

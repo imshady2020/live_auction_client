@@ -1,20 +1,12 @@
 import React, { useEffect } from "react"
 import Communication from "./Communication/Communication"
-import { /*useSelector,*/ useDispatch /*shallowEqual*/ } from "react-redux"
-import { ProductActions } from "./Store/Actions/ProductActions"
+import { useSelector } from "react-redux"
 
 function App() {
-  const dispatch = useDispatch()
-  const setProducts = () => {
-    dispatch({
-      type: ProductActions.GET_ALL_PRODUCTS,
-    })
-  }
-  const deleteProducts = () => {
-    dispatch({
-      type: ProductActions.DELETE_ALL_PRODUCTS,
-    })
-  }
+  console.log("rerender")
+  const state = useSelector((state) => state.ProductReducer.products)
+  console.log(state)
+
   const kliknuo = () => {
     Communication.Send(
       JSON.stringify({
@@ -37,8 +29,6 @@ function App() {
     <div>
       <h1>Mora se radi</h1>
       <button onClick={kliknuo}>Sad cu da klinem</button>
-      <button onClick={setProducts}>Ubaci proizvod</button>
-      <button onClick={deleteProducts}>Obrisi proizvode</button>
     </div>
   )
 }

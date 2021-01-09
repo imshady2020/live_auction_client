@@ -1,20 +1,18 @@
-import store from "../Store/Store"
+import { ProcessData } from "../Store/BusinessLogic/BusinessLogic"
 import { AvailableTypesOfMessage } from "./MessageTypes"
 
 export default class CommunicationFactory {
+  static Init = false
 
-  static Init = false;
-
-  static HandleIncomingSuccessMessage(messageType) {
-
+  static HandleIncomingSuccessMessage(message) {
+    const { type, msg, user } = message
     if (this.Init) {
-      switch (messageType) {
-        case AvailableTypesOfMessage.adminMessages.addNewActiveProduct:
-          //neki kod na osnovu ovoga
+      switch (type) {
+        case "message":
+          ProcessData.getAllProducts(msg)
           break
 
         case AvailableTypesOfMessage.clientMessages.activeProducts.getAllPendingProducts:
-          store.dispatch({ type: "GET_ALL_PRODUCTS" })
           break
 
         default:
@@ -38,10 +36,7 @@ export default class CommunicationFactory {
     console.log("zatvorena konencija za sada")
   }
 
-
-
   static set setCommunication(data) {
-    this.Init = data;
+    this.Init = data
   }
-
 }
