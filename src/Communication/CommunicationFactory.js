@@ -2,16 +2,12 @@ import store from "../Store/Store"
 import { AvailableTypesOfMessage } from "./MessageTypes"
 
 export default class CommunicationFactory {
-  static Initialized = false
 
-  constructor(props) {
-    console.log(props)
-    this.Initialized = props
-  }
+  static Init = false;
 
   static HandleIncomingSuccessMessage(messageType) {
-    console.log(messageType, this.Initialized)
-    if (this.Initialized) {
+
+    if (this.Init) {
       switch (messageType) {
         case AvailableTypesOfMessage.adminMessages.addNewActiveProduct:
           //neki kod na osnovu ovoga
@@ -41,4 +37,11 @@ export default class CommunicationFactory {
   static HandleIncomingCloseMessage() {
     console.log("zatvorena konencija za sada")
   }
+
+
+
+  static set setCommunication(data) {
+    this.Init = data;
+  }
+
 }

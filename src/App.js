@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import Communication from "./Communication/Communication"
-import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { /*useSelector,*/ useDispatch /*shallowEqual*/ } from "react-redux"
 import { ProductActions } from "./Store/Actions/ProductActions"
 
 function App() {
