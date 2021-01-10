@@ -1,21 +1,11 @@
 import React, { useEffect } from "react"
 import Communication from "./Communication/Communication"
-import { useSelector } from "react-redux"
+import Navbar from "./Components/Navbar"
+import Home from "./Views/Home"
+import Product from "./Views/Product"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 function App() {
-  console.log("rerender")
-  const state = useSelector((state) => state.ProductReducer.products)
-  console.log(state)
-
-  const kliknuo = () => {
-    Communication.Send(
-      JSON.stringify({
-        type: "message",
-        msg: "Moram da ti kazem da si doktor",
-        user: "Marko Taskovic",
-      })
-    )
-  }
   useEffect(() => {
     const cleanup = () => {
       Communication.Disconnect()
@@ -26,10 +16,19 @@ function App() {
   }, [])
 
   return (
-    <div>
-      <h1>Mora se radi</h1>
-      <button onClick={kliknuo}>Sad cu da klinem</button>
-    </div>
+    <>
+      <Navbar />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/:id">
+            <Product />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   )
 }
 

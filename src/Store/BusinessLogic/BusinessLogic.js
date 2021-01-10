@@ -28,4 +28,7 @@ export class ProcessData {
 
     store.dispatch({ type: ProductActions.GET_ALL_PRODUCTS, payload: noviObjekat })
   }
+  static test(payload) {
+    store.dispatch({ type: "TEST", payload })
+  }
 }
