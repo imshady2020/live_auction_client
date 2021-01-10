@@ -44,7 +44,11 @@ const SingleProduct = ({
       )}
       <select onChange={(e) => setSelectedBid(Number(e.target.value))}>
         {availableBids.map((availableBid) => {
-          return <option value={availableBid}>{availableBid}</option>
+          return (
+            <option value={availableBid} key={availableBid}>
+              {availableBid}
+            </option>
+          )
         })}
       </select>
       <button onClick={() => bid()}>Bid!</button>

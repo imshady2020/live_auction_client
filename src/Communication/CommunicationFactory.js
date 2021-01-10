@@ -5,7 +5,7 @@ export default class CommunicationFactory {
   static Init = false
 
   static HandleIncomingSuccessMessage(message) {
-    const { type, msg, user, bid } = message
+    const { type, msg, /*user*/ bid } = message
     if (this.Init) {
       switch (type) {
         case "message":
@@ -17,6 +17,7 @@ export default class CommunicationFactory {
         case "test":
           const payload = { msg, bid }
           ProcessData.test(payload)
+          break
 
         default:
           console.log("Nista se nije desilo")

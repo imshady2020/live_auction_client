@@ -147,9 +147,9 @@ const ProductReducer = (currentProductsState = ProductState, action) => {
       const temp_state = JSON.parse(JSON.stringify(currentProductsState))
       temp_state.products.map((product) => {
         if (product.productID === payload.msg) {
-          product.currentProductPrice = product.currentProductPrice + Number(payload.bid)
+          return (product.currentProductPrice = product.currentProductPrice + Number(payload.bid))
         } else {
-          return
+          return null
         }
       })
 
