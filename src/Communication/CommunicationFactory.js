@@ -5,7 +5,7 @@ export default class CommunicationFactory {
   static Init = false
 
   static HandleIncomingSuccessMessage(message) {
-    const { type, msg, /*user*/ bid } = message
+    const { type, msg, user, bid_amount, product } = message
     if (this.Init) {
       switch (type) {
         case "message":
@@ -14,9 +14,8 @@ export default class CommunicationFactory {
 
         case AvailableTypesOfMessage.clientMessages.activeProducts.getAllPendingProducts:
           break
-        case "test":
-          const payload = { msg, bid }
-          ProcessData.test(payload)
+        case "BID_UP":
+          ProcessData.bid(product, bid_amount, user)
           break
 
         default:

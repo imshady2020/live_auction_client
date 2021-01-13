@@ -24,7 +24,7 @@ const ProductState = {
         {
           userId: "User ID",
           userName: "User Name",
-          userBig: "User Bid",
+          userBid: "User Bid",
         },
       ],
     },
@@ -50,7 +50,7 @@ const ProductState = {
         {
           userId: "User ID",
           userName: "User Name",
-          userBig: "User Bid",
+          userBid: "User Bid",
         },
       ],
     },
@@ -76,7 +76,7 @@ const ProductState = {
         {
           userId: "User ID",
           userName: "User Name",
-          userBig: "User Bid",
+          userBid: "User Bid",
         },
       ],
     },
@@ -102,7 +102,7 @@ const ProductState = {
         {
           userId: "User ID",
           userName: "User Name",
-          userBig: "User Bid",
+          userBid: "User Bid",
         },
       ],
     },
@@ -128,7 +128,7 @@ const ProductState = {
         {
           userId: "User ID",
           userName: "User Name",
-          userBig: "User Bid",
+          userBid: "User Bid",
         },
       ],
     },
@@ -140,20 +140,26 @@ const ProductReducer = (currentProductsState = ProductState, action) => {
   const { type, payload } = action
   switch (type) {
     case ProductActions.GET_ALL_PRODUCTS:
-      const noviState = JSON.parse(JSON.stringify(currentProductsState)) //pravi se deep copy da bi rerenderovao komponente koje koriste ovo iz store-a
-      noviState.products.push(payload)
-      return { ...noviState }
-    case "TEST":
-      const temp_state = JSON.parse(JSON.stringify(currentProductsState))
-      temp_state.products.map((product) => {
-        if (product.productID === payload.msg) {
-          return (product.currentProductPrice = product.currentProductPrice + Number(payload.bid))
+      let all_products_state = JSON.parse(JSON.stringify(currentProductsState)) //pravi se deep copy da bi rerenderovao komponente koje koriste ovo iz store-a
+      all_products_state.products.push(payload)
+      return { ...currentProductsState, ...all_products_state }
+    case ProductActions.CHANGE_PRODUCT_VALUE:
+      console.log(payload)
+      const change_product_state = JSON.parse(JSON.stringify(currentProductsState))
+      change_product_state.products.map((product) => {
+        if (product.productID === payload.product) {
+          product.productBids = [
+            ...product.productBids,
+            { userId: "user ID", userName: payload.user, userBid: payload.bid_amount },
+          ]
+          product.currentProductPrice = product.currentProductPrice + Number(payload.bid_amount)
+          return null
         } else {
           return null
         }
       })
 
-      return { ...temp_state }
+      return { ...currentProductsState, ...change_product_state }
     default:
       return { ...currentProductsState }
   }

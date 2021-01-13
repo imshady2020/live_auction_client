@@ -28,7 +28,10 @@ export class ProcessData {
 
     store.dispatch({ type: ProductActions.GET_ALL_PRODUCTS, payload: noviObjekat })
   }
-  static test(payload) {
-    store.dispatch({ type: "TEST", payload })
+  static bid(product, bid_amount, user) {
+    store.dispatch({
+      type: ProductActions.CHANGE_PRODUCT_VALUE,
+      payload: { product, bid_amount, user },
+    })
   }
 }

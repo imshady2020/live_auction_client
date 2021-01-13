@@ -20,9 +20,10 @@ const SingleProduct = ({
   const bid = () => {
     Communication.Send(
       JSON.stringify({
-        msg: `${productID}`,
-        bid: `${selectedBid}`,
-        type: "test",
+        product: `${productID}`,
+        bid_amount: `${selectedBid}`,
+        msg: "test msg",
+        type: "BID_UP",
         user: "test user",
       })
     )
