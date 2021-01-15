@@ -34,25 +34,30 @@ const SingleProduct = ({
       <Link to={productID}>
         <img src={productImages[0]} alt={productName} style={{ width: "120px", height: "120px" }} />
       </Link>
-      <h5>Last bid: {currentProductPrice}</h5>
-      <h6>time left:</h6>
+
       {timeLeft ? (
-        <p>
-          days: {timeLeft.days}, hours: {timeLeft.hours}, minutes: {timeLeft.minutes}
-        </p>
+        <>
+          <h3>Last bid: {currentProductPrice}</h3>
+          <h5>
+            time left: days: {timeLeft.days}, hours: {timeLeft.hours}, minutes: {timeLeft.minutes}
+          </h5>
+          <select onChange={(e) => setSelectedBid(Number(e.target.value))}>
+            {availableBids.map((availableBid) => {
+              return (
+                <option value={availableBid} key={availableBid}>
+                  {availableBid}
+                </option>
+              )
+            })}
+          </select>
+          <button onClick={() => bid()}>Bid!</button>
+        </>
       ) : (
-        <p>Auction finished</p>
+        <>
+          <h5>Sold for: {currentProductPrice}</h5>
+          <p>Auction finished</p>
+        </>
       )}
-      <select onChange={(e) => setSelectedBid(Number(e.target.value))}>
-        {availableBids.map((availableBid) => {
-          return (
-            <option value={availableBid} key={availableBid}>
-              {availableBid}
-            </option>
-          )
-        })}
-      </select>
-      <button onClick={() => bid()}>Bid!</button>
     </li>
   )
 }

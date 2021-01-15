@@ -25,31 +25,37 @@ const Product = () => {
   return (
     <div>
       {timeLeft ? (
-        <p>
-          TIME LEFT: days: {timeLeft.days}, hours: {timeLeft.hours}, minutes: {timeLeft.minutes}
-        </p>
+        <>
+          <p>
+            TIME LEFT: days: {timeLeft.days}, hours: {timeLeft.hours}, minutes: {timeLeft.minutes}
+          </p>
+          <p>Current price: {product[0].currentProductPrice}</p>
+          {product[0].productBids.map((bid, index) => {
+            return (
+              <div key={index}>
+                {bid.userName} just bided {bid.userBid}
+              </div>
+            )
+          })}
+          <select ref={bidRef}>
+            {product[0].availableBids.map((availableBid) => {
+              return (
+                <option value={availableBid} key={availableBid}>
+                  {availableBid}
+                </option>
+              )
+            })}
+          </select>
+          <button onClick={() => bid()}>Bid!</button>
+        </>
       ) : (
-        <p>Auction finished</p>
+        <>
+          <p>Auction finished</p>
+          <p>Sold for: {product[0].currentProductPrice}</p>
+          <p>Sold to: {product[0].productBids[product[0].productBids.length - 1].userName}</p>
+          <hr />
+        </>
       )}
-      Current price: {product[0].currentProductPrice}
-      <hr />
-      {product[0].productBids.map((bid, index) => {
-        return (
-          <div key={index}>
-            {bid.userName} just bided {bid.userBid}
-          </div>
-        )
-      })}
-      <select ref={bidRef}>
-        {product[0].availableBids.map((availableBid) => {
-          return (
-            <option value={availableBid} key={availableBid}>
-              {availableBid}
-            </option>
-          )
-        })}
-      </select>
-      <button onClick={() => bid()}>Bid!</button>
     </div>
   )
 }

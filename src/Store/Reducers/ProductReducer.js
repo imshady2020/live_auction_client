@@ -138,15 +138,16 @@ const ProductState = {
 // Product Reducer
 const ProductReducer = (currentProductsState = ProductState, action) => {
   const { type, payload } = action
+  let temp_products // temporary variable for making deep copy of currentProductsState
   switch (type) {
     case ProductActions.GET_ALL_PRODUCTS:
-      let all_products_state = JSON.parse(JSON.stringify(currentProductsState)) //pravi se deep copy da bi rerenderovao komponente koje koriste ovo iz store-a
-      all_products_state.products.push(payload)
-      return { ...currentProductsState, ...all_products_state }
+      temp_products = JSON.parse(JSON.stringify(currentProductsState)) //making deep copy so that Components that use useSelector would rerender if state changes
+      temp_products.products.push(payload)
+      return { ...currentProductsState, ...temp_products }
+
     case ProductActions.CHANGE_PRODUCT_VALUE:
-      console.log(payload)
-      const change_product_state = JSON.parse(JSON.stringify(currentProductsState))
-      change_product_state.products.map((product) => {
+      temp_products = JSON.parse(JSON.stringify(currentProductsState))
+      temp_products.products.map((product) => {
         if (product.productID === payload.product) {
           product.productBids = [
             ...product.productBids,
@@ -159,7 +160,7 @@ const ProductReducer = (currentProductsState = ProductState, action) => {
         }
       })
 
-      return { ...currentProductsState, ...change_product_state }
+      return { ...currentProductsState, ...temp_products }
     default:
       return { ...currentProductsState }
   }
