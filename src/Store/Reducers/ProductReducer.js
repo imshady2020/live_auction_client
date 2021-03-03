@@ -4,16 +4,16 @@ const ProductState = {
   products: [
     {
       productID: "1",
-      productCategoryName: "devices",
+      productCategoryName: "Basket8all Cards",
       productCategoryID: "1",
-      productName: "samsung",
-      productAlias: "phone",
-      productDescription: "device for communication",
+      productName: "Michael Jordan Rookie",
+      productAlias: "Fleer 86",
+      productDescription: "1986 Fleer #57 Michael Jordan Rookie Card",
       productImages: [
         "https://www.pngitem.com/pimgs/m/70-703952_iphone-6-plus-smartphone-mobile-phone-device-icon.png",
         "https://cdn2.iconfinder.com/data/icons/gps-navigation-1/64/gps-travel-mobile_map-map_location-placeholder-mobile_phone-smartphone-geolocalization-pin-signs-512.png",
       ],
-      currentProductPrice: 400,
+      currentProductPrice: 250,000.00,
       availableCurrency: ["RSD", "EUR", "USD", "GBR"],
       availableBids: [100, 200, 500, 1000, 2000, 5000],
       canPlaceBid: false || true,
